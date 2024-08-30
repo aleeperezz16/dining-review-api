@@ -2,7 +2,7 @@ package com.example.diningreview.controller;
 
 import com.example.diningreview.model.User;
 import com.example.diningreview.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(name = "/user")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserController {
     private final UserRepository userRepository;
 

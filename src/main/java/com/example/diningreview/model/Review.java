@@ -7,17 +7,20 @@ import lombok.*;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Restaurant {
+public class Review {
     @Id
     @GeneratedValue
     private Long id;
 
-    private String name;
+    private String submitterName;
 
-    private String zipcode;
+    private Long restaurantId;
 
     private Double peanutScore;
     private Double eggScore;
     private Double dairyScore;
-    private Double overallScore;
+
+    private String commentary;
+
+    private Status status;
 }

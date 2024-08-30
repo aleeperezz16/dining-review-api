@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface RestaurantRepository extends CrudRepository<Restaurant, Long> {
     Optional<Restaurant> findByNameAndZipcode(String name, String zipcode);
-    List<Restaurant> findAllByZipcodeAndEggScoreIsNotNullOrderByEggScoreDesc(String zipcode);
-    List<Restaurant> findAllByZipcodeAndPeanutScoreIsNotNullOrderByPeanutScoreDesc(String zipcode);
-    List<Restaurant> findAllByZipcodeAndDairyScoreIsNotNullOrderByDairyScoreDesc(String zipcode);
+    List<Restaurant> findAllByZipcodeAndEggScoreNotNullOrderByEggScore(String zipcode);
+    List<Restaurant> findAllByZipcodeAndPeanutScoreNotNullOrderByPeanutScore(String zipcode);
+    List<Restaurant> findAllByZipcodeAndDairyScoreNotNullOrderByDairyScore(String zipcode);
 }

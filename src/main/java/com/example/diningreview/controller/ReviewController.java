@@ -1,7 +1,7 @@
 package com.example.diningreview.controller;
 
-import com.example.diningreview.model.Restaurant;
-import com.example.diningreview.repository.RestaurantRepository;
+import com.example.diningreview.model.Review;
+import com.example.diningreview.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,23 +13,23 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(name = "/restaurant")
+@RequestMapping(name = "/dining-review")
 @RequiredArgsConstructor
-public class RestaurantController {
-    private final RestaurantRepository restaurantRepository;
+public class ReviewController {
+    private final ReviewRepository reviewRepository;
 
     @GetMapping
-    public Iterable<Restaurant> getAllRestaurants() {
-        return restaurantRepository.findAll();
+    public Iterable<Review> getAllDiningReviews() {
+        return reviewRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Restaurant getRestaurantById(@PathVariable long id) {
-        Optional<Restaurant> restaurantOptional = restaurantRepository.findById(id);
-        if (restaurantOptional.isEmpty()) {
+    public Review getDiningReviewById(@PathVariable long id) {
+        Optional<Review> diningReviewOptional = reviewRepository.findById(id);
+        if (diningReviewOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        return restaurantOptional.get();
+        return diningReviewOptional.get();
     }
 }
