@@ -13,7 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(name = "/dining-review")
+@RequestMapping(name = "/reviews")
 @RequiredArgsConstructor
 public class ReviewController {
     private final ReviewRepository reviewRepository;

@@ -22,5 +22,5 @@ public class Review {
 
     private String commentary;
 
-    private Status status;
+    private ReviewStatus status;
 }

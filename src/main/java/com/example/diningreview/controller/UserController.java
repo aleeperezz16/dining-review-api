@@ -10,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(name = "/user")
+@RequestMapping(name = "/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserRepository userRepository;
