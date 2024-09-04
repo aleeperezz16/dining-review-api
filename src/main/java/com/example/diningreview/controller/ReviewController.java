@@ -1,13 +1,14 @@
 package com.example.diningreview.controller;
 
+import com.example.diningreview.model.Restaurant;
 import com.example.diningreview.model.Review;
+import com.example.diningreview.model.User;
+import com.example.diningreview.repository.RestaurantRepository;
 import com.example.diningreview.repository.ReviewRepository;
+import com.example.diningreview.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
@@ -17,19 +18,37 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ReviewController {
     private final ReviewRepository reviewRepository;
+    private final UserRepository userRepository;
+    private final RestaurantRepository restaurantRepository;
 
     @GetMapping
-    public Iterable<Review> getAllDiningReviews() {
+    public Iterable<Review> getReviews() {
         return reviewRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Review getDiningReviewById(@PathVariable long id) {
-        Optional<Review> diningReviewOptional = reviewRepository.findById(id);
-        if (diningReviewOptional.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    public Review getReview(@PathVariable Long id) {
+        Optional<Review> review = reviewRepository.findById(id);
+        if (review.isPresent()) {
+            return review.get();
         }
 
-        return diningReviewOptional.get();
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found");
+    }
+
+    @PostMapping("/submit")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void submitReview(@RequestBody Review review) {
+        Optional<User> userOptional = userRepository.findByDisplayName(review.getSubmitterName());
+        if (userOptional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+
+        Optional<Restaurant> restaurantOptional = restaurantRepository.findById(review.getRestaurantId());
+        if (restaurantOptional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant not found");
+        }
+
+        reviewRepository.save(review);
     }
 }
